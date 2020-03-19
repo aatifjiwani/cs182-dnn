@@ -1,0 +1,11 @@
+/bin/**/*
+/lib/**/*
+/include/**/*
+/share/**/*
+
+.Python
+
+/etc/**/*
+
+**/dataset/
+**/datasets/
