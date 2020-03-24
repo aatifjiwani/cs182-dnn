@@ -154,7 +154,7 @@ class MultiHeadAttention(Model):
         assert self.qa_channels == self.ma_channels, 'Cannot combine tensors with different shapes'
 
         self.query_layer = Dense(self.qa_channels, use_bias=False)
-        print("qa", self.qa_channels)
+        #print("qa", self.qa_channels)
         self.key_layer = Dense(self.qa_channels, use_bias=False)
         self.value_layer = Dense(self.ma_channels, use_bias=False)
 
@@ -174,7 +174,7 @@ class MultiHeadAttention(Model):
         q = self.query_layer(query_antecedent)
         k = self.key_layer(memory_antecedent)
         v = self.value_layer(memory_antecedent)
-        print("q", q.shape, "k", k.shape, "v", v.shape)
+        #print("q", q.shape, "k", k.shape, "v", v.shape)
 
         attention_output = self.attention_layer((q, k, v), mask=mask)
         output = self.output_layer(attention_output)

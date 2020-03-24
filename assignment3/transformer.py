@@ -100,12 +100,12 @@ class TransformerEncoderBlock(Model):
         # First normalize the input with the LayerNorm initialized in the __init__ function (self.norm)
         # Step 1
         norm_inputs = self.norm(inputs)
-        print("input", inputs.shape)
+        #print("input", inputs.shape)
         # Apply the self-attention with the normalized input, use the self_attention mask as the optional mask parameter.
         # Using self.self_attention
         # Step 2
         attn = self.self_attention((norm_inputs, norm_inputs), mask=self_attention_mask)
-        print("attn", attn.shape)
+        #print("attn", attn.shape)
         # Apply the residual connection.
         # res_attn should sum the attention output and the original, non-normalized inputs
         # Step 3
@@ -114,6 +114,7 @@ class TransformerEncoderBlock(Model):
         # Apply the self.feed_forward to get the output of the EncoderBlock.
         # Step 4
         output = self.feed_forward(res_attn)
+        #print("out", output.shape)
         return output
 
 
@@ -205,9 +206,7 @@ class TransformerEncoder(Model):
         """
 
         inputs = self.embedding_layer(inputs)
-        print(inputs.shape)
         output = self.encoding_stack(inputs, self_attention_mask=encoder_mask)
-        print(output.shape)
         
         return output
 
@@ -412,9 +411,9 @@ class Transformer(Model):
 
         # Part 1: Encode
         # Using the self.encoder, encode the source_sequence, and provide the encoder_mask variable as the optional mask.
-        print(source_sequence.shape)
+        #print(source_sequence.shape)
         encoder_output = self.encoder(source_sequence, encoder_mask=encoder_mask)
-        print("encoder_out", encoder_output.shape)
+        #print("encoder_out", encoder_output.shape)
         # Part 2: Decode
         # Finally, we need to do a decoding this should generate a
         # tensor of shape [batch_size x target_length x d_model]
@@ -427,8 +426,8 @@ class Transformer(Model):
         # shift_target_sequence_right=shift_target_sequence_right, mask_future=mask_future
         decoder_output = self.decoder(target_sequence, encoder_output, encoder_mask=encoder_mask, decoder_mask=decoder_mask,
                                      mask_future=mask_future, shift_target_sequence_right=shift_target_sequence_right)
-        print("target", target_sequence.shape)
-        print("decoder", decoder_output.shape)
+        #print("target", target_sequence.shape)
+        #print("decoder", decoder_output.shape)
         #call(self, target_input, encoder_output, encoder_mask=None, decoder_mask=None, mask_future=False,
         #shift_target_sequence_right=False)
 
